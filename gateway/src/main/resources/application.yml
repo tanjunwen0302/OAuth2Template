@@ -1,0 +1,28 @@
+server:
+  port: 6001
+
+eureka:
+  client:
+    service-url:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://tanjunwen:123456@localhost:7001/eureka/
+
+spring:
+  application:
+    name: geteway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+      routes:
+        - id: uaa-server #payment_route    #路由的ID，没有固定规则但要求唯一，建议配合服务名
+          uri: lb://security-uaa   #匹配后提供服务的路由地址
+          predicates:
+            - Path=/uaa/**         # 断言，路径相匹配的进行路由
+
+        - id: order-server #payment_route    #路由的ID，没有固定规则但要求唯一，建议配合服务名
+          uri: lb://order-Server  #匹配后提供服务的路由地址
+          predicates:
+            - Path=/order/**         # 断言，路径相匹配的进行路由

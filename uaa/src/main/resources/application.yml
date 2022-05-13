@@ -1,0 +1,33 @@
+server:
+  port: 5030
+  servlet:
+    context-path: /uaa
+
+#对称加密密钥
+security:
+  symmetricKey: 5m~iA=xYRl.rhbZ4H-V9Nk($3P%574UwsX0u1Gv2n3qQ;M9E
+spring:
+  application:
+    name: security-uaa
+  datasource:
+    url: jdbc:mysql://localhost:3306/oauth2template?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useAffectedRows=true&allowMultiQueries=true
+    username: root
+    password: qQ1143042332
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  #mybatis-plus配置
+  mybatis-plus:
+    #xml地址
+    mapper-locations:
+      - classpath: mapper/*.xml
+    #实体扫描
+    type-aliases-package: uaa.entity.Rights,uaa.entity.User
+
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    service-url:
+#      eureka加密，认证后才可以访问
+      defaultZone: http://tanjunwen:123456@localhost:7001/eureka/
+

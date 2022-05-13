@@ -1,0 +1,24 @@
+server:
+  port: 7001
+eureka:
+  instance:
+    hostname: eurekaServer #eureka服务端实例名称
+  client:
+    #false表示不向注册中心注册自己
+    register-with-eureka: false
+    #false表示自己就是注册中心，职责就是维护服务实例
+    #并不需要去检索服务
+    fetch-registry: false
+    instance-info-replication-interval-seconds: 10  #实例信息复制间隔秒
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:7001/eureka/
+
+
+spring:
+  application:
+    name: eurekaServer7001
+  security:
+    user:
+      name: tanjunwen
+      password: 123456
+

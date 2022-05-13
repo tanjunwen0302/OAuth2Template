@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="uaa.dao.RightsDao">
+    <select id="queryPermission" parameterType="string" resultType="string">
+        SELECT rights.rights
+        FROM rights
+        WHERE rights.rights_id IN (SELECT user_rights.rights_id FROM user_rights WHERE user_rights.user_id = #{id});
+    </select>
+</mapper>

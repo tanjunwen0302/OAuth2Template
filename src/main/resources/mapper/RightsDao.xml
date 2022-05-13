@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="uaa.dao.RightsDao">
+
+    <resultMap id="BaseResultMap" type="uaa.entity.Rights">
+        <!--@Table rights-->
+        <result property="rightsId" column="rights_id" jdbcType="INTEGER"/>
+        <result property="rights" column="rights" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          rights_id, rights
+        from oauth2template.rights
+        where rights_id = #{rightsId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          rights_id, rights
+        from oauth2template.rights
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          rights_id, rights
+        from oauth2template.rights
+        <where>
+            <if test="rightsId != null">
+                and rights_id = #{rightsId}
+            </if>
+            <if test="rights != null and rights != ''">
+                and rights = #{rights}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="rightsId" useGeneratedKeys="true">
+        insert into oauth2template.rights(rights)
+        values (#{rights})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update oauth2template.rights
+        <set>
+            <if test="rights != null and rights != ''">
+                rights = #{rights},
+            </if>
+        </set>
+        where rights_id = #{rightsId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from oauth2template.rights where rights_id = #{rightsId}
+    </delete>
+
+</mapper>

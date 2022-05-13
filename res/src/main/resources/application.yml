@@ -1,0 +1,19 @@
+server:
+  port: 5031
+  servlet:
+    context-path: /order
+
+
+security:
+  #对称加密密钥
+  symmetricKey: 5m~iA=xYRl.rhbZ4H-V9Nk($3P%574UwsX0u1Gv2n3qQ;M9E
+  #资源id，表示客户端需要有res1资源的访问权限才可访问该服务
+  resourceId: res1
+spring:
+  application:
+    name: order-Server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://tanjunwen:123456@localhost:7001/eureka/
